@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>满冠体育 · 运动信息参考</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #faf9f7;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      line-height: 1.65;
+      color: #2d2a24;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    .page {
+      max-width: 720px;
+      width: 100%;
+    }
+
+    /* 主视觉 - 留白卡片式 */
+    .hero {
+      margin-bottom: 3.5rem;
+      padding: 2.8rem 2rem;
+      background: #ffffff;
+      border-radius: 28px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02), 0 6px 20px rgba(0, 0, 0, 0.02);
+      transition: box-shadow 0.25s ease;
+    }
+
+    .hero:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02), 0 12px 28px rgba(0, 0, 0, 0.03);
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 450;
+      letter-spacing: -0.02em;
+      color: #1f1c17;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero .sub {
+      font-size: 1.1rem;
+      color: #6b645a;
+      border-left: 3px solid #c8bcac;
+      padding-left: 1rem;
+      margin: 1rem 0 1.2rem 0;
+      font-weight: 380;
+    }
+
+    .hero p {
+      color: #4e4840;
+      margin-top: 0.6rem;
+    }
+
+    /* 卡片网格 */
+    .card-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      margin-bottom: 3rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 1.8rem 2rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s ease;
+    }
+
+    .card:hover {
+      background: #fcfcfb;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+    }
+
+    .card h2 {
+      font-size: 1.3rem;
+      font-weight: 460;
+      letter-spacing: -0.01em;
+      color: #26221c;
+      margin-bottom: 0.9rem;
+      border-bottom: 1px solid #efeae2;
+      padding-bottom: 0.5rem;
+    }
+
+    .card ul, .card p {
+      color: #4a443c;
+      margin-bottom: 0.6rem;
+    }
+
+    .card ul {
+      list-style: none;
+      padding-left: 0.2rem;
+    }
+
+    .card li {
+      padding: 0.3rem 0 0.3rem 1.4rem;
+      position: relative;
+    }
+
+    .card li::before {
+      content: "·";
+      position: absolute;
+      left: 0.2rem;
+      color: #b7a99a;
+      font-weight: 700;
+      font-size: 1.3rem;
+    }
+
+    .tag-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.7rem;
+      margin-top: 0.8rem;
+    }
+
+    .tag {
+      background: #f1ede7;
+      color: #3e3932;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      letter-spacing: 0.02em;
+    }
+
+    .tag-light {
+      background: #f6f3ee;
+      color: #5b544b;
+    }
+
+    /* 自然链接段落 */
+    .link-section {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2rem 2rem 2.2rem;
+      margin-top: 0.8rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+
+    .link-section p {
+      color: #3f3a33;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .link-section a {
+      color: #3f3a33;
+      text-decoration: underline;
+      text-decoration-color: #c4b8a9;
+      text-underline-offset: 3px;
+      font-weight: 400;
+      transition: color 0.2s, text-decoration-color 0.2s;
+    }
+
+    .link-section a:hover {
+      color: #1f1c17;
+      text-decoration-color: #8f7e6a;
+    }
+
+    .faq-mini {
+      margin-top: 2.8rem;
+      padding: 0 0.2rem;
+    }
+
+    .faq-mini summary {
+      font-weight: 430;
+      color: #2d2923;
+      cursor: pointer;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #e5ddd4;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .faq-mini summary::before {
+      content: "↳";
+      color: #b1a18e;
+      font-size: 1.1rem;
+      margin-right: 0.2rem;
+    }
+
+    .faq-mini details[open] summary::before {
+      content: "↲";
+    }
+
+    .faq-mini details {
+      margin-bottom: 0.3rem;
+    }
+
+    .faq-mini .answer {
+      padding: 0.8rem 0 1rem 1.6rem;
+      color: #4d463d;
+      font-size: 0.95rem;
+      border-left: 2px solid #ebe3d9;
+      margin: 0 0 0.4rem 0.4rem;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e7e0d7;
+      margin: 3rem 0 1rem;
+      opacity: 0.5;
+    }
+
+    .footer-note {
+      font-size: 0.8rem;
+      color: #9b9186;
+      text-align: center;
+      letter-spacing: 0.02em;
+      margin-top: 2.5rem;
+    }
+
+    @media (max-width: 500px) {
+      body {
+        padding: 1.8rem 1rem 4rem;
+      }
+      .hero {
+        padding: 2rem 1.4rem;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .card, .link-section {
+        padding: 1.5rem 1.2rem;
+      }
+      .card-grid {
+        gap: 1.3rem;
+      }
+      .faq-mini .answer {
+        padding-left: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- 主视觉 -->
+    <div class="hero">
+      <h1>满冠体育 · 运动信息参照</h1>
+      <div class="sub">日常查询 · 对照 · 延伸阅读</div>
+      <p>
+        不论是偶尔翻看训练资料，还是对照动作细节，<a href="https://apps-mgsports.com" style="color:#2d2a24; text-decoration: underline; text-decoration-color: #c4b8a9; text-underline-offset: 3px;">满冠体育</a>提供了一种更安静的参考方式。页面结构清晰，内容偏重实用，适合在碎片时间里随手查阅。
+      </p>
+    </div>
+
+    <!-- 用途卡片 + 适合人群，两段式（但用卡片网格） -->
+    <div class="card-grid">
+      <div class="card">
+        <h2>常见用途</h2>
+        <ul>
+          <li>对照运动术语与基础概念</li>
+          <li>了解不同项目的背景与规则梗概</li>
+          <li>快速检索分类信息，辅助日常笔记整理</li>
+          <li>作为延伸阅读的起点，再自行查找更深的资料</li>
+        </ul>
+        <div class="tag-group">
+          <span class="tag">术语参考</span>
+          <span class="tag">规则速览</span>
+          <span class="tag">分类索引</span>
+          <span class="tag">笔记对照</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>适合人群</h2>
+        <ul>
+          <li>运动爱好者 · 业余训练者</li>
+          <li>需要快速查证基础信息的学生或教练</li>
+          <li>对体育内容保持好奇，但不想被推送淹没的人</li>
+          <li>习惯用网页做轻量资料整理的用户</li>
+        </ul>
+        <div class="tag-group">
+          <span class="tag tag-light">业余爱好者</span>
+          <span class="tag tag-light">学生</span>
+          <span class="tag tag-light">教练助理</span>
+          <span class="tag tag-light">资料整理</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 自然链接段落（非重复句子） -->
+    <div class="link-section">
+      <p>
+        如果你平时习惯把常用网站当作信息锚点，那么可以试试把 <a href="https://apps-mgsports.com">满冠体育</a> 加入书签。它没有复杂的交互负担，页面更接近一本可以随手翻的参考手册，适合在训练前、整理笔记时或者单纯想厘清某个概念时打开。
+      </p>
+      <p>
+        站内内容以分类形式呈现，不堆砌夸张描述，也不会强行引导。对于希望保持信息获取节奏的人来说，这种风格反而更容易聚焦——不需要在一堆营销话术里筛选有效信息。
+      </p>
+    </div>
+
+    <!-- FAQ 摘要（提示性） -->
+    <div class="faq-mini">
+      <details>
+        <summary>这个网站适合完全没基础的人吗？</summary>
+        <div class="answer">
+          内容偏向基础到中等难度，大部分页面以概念解释和分类为主，没有复杂的专业壁垒。如果你刚开始对运动类信息感兴趣，可以作为第一层参考，再根据自身需要向外延伸。
+        </div>
+      </details>
+      <details>
+        <summary>内容更新频率如何？</summary>
+        <div class="answer">
+          具体更新节奏建议直接以网站实际显示为准。整体偏向稳定的参考型内容，而非实时新闻，适合作为长期对照来源。
+        </div>
+      </details>
+      <details>
+        <summary>移动端阅读体验怎么样？</summary>
+        <div class="answer">
+          页面自适应，在手机浏览器上排版干净，没有多余弹窗或底部广告干扰。阅读段落、查看分类都比较顺畅。
+        </div>
+      </details>
+    </div>
+
+    <hr>
+
+    <div class="footer-note">
+      信息卡片式参考 · 日常查询与延伸
+    </div>
+  </div>
+</body>
+</html>
